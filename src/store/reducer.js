@@ -1,4 +1,4 @@
-import {SET_TODO_INPUT , ADD_TODO_INPUT ,DELETE_TODO_INPUT} from "./constants"
+import {SET_TODO_INPUT , ADD_TODO_INPUT ,DELETE_TODO_INPUT,EDIT_TODO_INPUT} from "./constants"
 
 const initState = {
     todos : [] ,
@@ -6,6 +6,7 @@ const initState = {
 }
 
 function reducer(state ,action){
+    console.log(action);
     switch(action.type){
         case SET_TODO_INPUT : 
             return {
@@ -18,9 +19,16 @@ function reducer(state ,action){
                 todos : [...state.todos , action.payLoad]
             }
         case DELETE_TODO_INPUT : 
-            state.todos.splice(action.layLoad , 1)
+            const newTodos = [...state.todos];
+            newTodos.splice(action.payLoad, 1)
             return {
-                ...state
+                ...state , 
+                todos :  newTodos
+            }
+        case EDIT_TODO_INPUT : 
+            state.todos[action.index] = action.payLoad
+            return {
+                ...state , 
             }
     }
 }
